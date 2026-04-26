@@ -144,12 +144,14 @@ addColumnIfNotExists($conn, 'post_comments', 'email', 'VARCHAR(100) AFTER name')
 addColumnIfNotExists($conn, 'post_comments', 'comment', 'TEXT AFTER email');
 addColumnIfNotExists($conn, 'post_comments', 'is_read', 'TINYINT(1) DEFAULT 0 AFTER status');
 
-// Ensure UNIQUE constraint on homepage_settings
+// Ensure UNIQUE constraint on homepage_settings (Clean up duplicates first)
 $index_check = $conn->query("SHOW INDEX FROM homepage_settings WHERE Column_name = 'setting_key' AND Non_unique = 0");
 if ($index_check && $index_check->num_rows == 0) {
-    // If we have duplicates, we should clean them up first or just try to add the index
-    // Let's try to add it. If it fails due to duplicates, we might need a more complex cleanup.
-    $conn->query("ALTER IGNORE TABLE homepage_settings ADD UNIQUE (setting_key)");
+    // 1. Keep only the latest entry for each key (the one with the largest ID)
+    $conn->query("DELETE t1 FROM homepage_settings t1 INNER JOIN homepage_settings t2 WHERE t1.id < t2.id AND t1.setting_key = t2.setting_key");
+    
+    // 2. Add the unique index
+    $conn->query("ALTER TABLE homepage_settings ADD UNIQUE (setting_key)");
 }
 
 // Visitor Logging Logic
