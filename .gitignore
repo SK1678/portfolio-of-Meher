@@ -1,0 +1,6 @@
+config.php
+deploy.log
+uploads/vault/*
+!uploads/vault/.gitkeep
+.DS_Store
+Thumbs.db
