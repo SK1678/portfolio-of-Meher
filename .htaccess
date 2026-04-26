@@ -1,5 +1,5 @@
 RewriteEngine On
-RewriteBase /po/
+# RewriteBase auto-detected by Apache
 
 # External redirect: remove .php extension if present in URL (GET requests only)
 RewriteCond %{REQUEST_METHOD} GET
