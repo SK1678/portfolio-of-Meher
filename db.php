@@ -138,6 +138,7 @@ function addColumnIfNotExists($conn, $table, $column, $definition)
 
 addColumnIfNotExists($conn, 'visitor_logs', 'page_url', 'TEXT AFTER ip_address');
 addColumnIfNotExists($conn, 'posts', 'views', 'INT DEFAULT 0 AFTER status');
+addColumnIfNotExists($conn, 'posts', 'hero_image', 'VARCHAR(500) AFTER feature_image');
 addColumnIfNotExists($conn, 'post_comments', 'name', 'VARCHAR(100) AFTER parent_id');
 addColumnIfNotExists($conn, 'post_comments', 'email', 'VARCHAR(100) AFTER name');
 addColumnIfNotExists($conn, 'post_comments', 'comment', 'TEXT AFTER email');

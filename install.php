@@ -115,6 +115,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 content LONGTEXT,
                 excerpt TEXT,
                 feature_image VARCHAR(500),
+                hero_image VARCHAR(500),
                 status ENUM('published','draft') DEFAULT 'draft',
                 created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
                 updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
