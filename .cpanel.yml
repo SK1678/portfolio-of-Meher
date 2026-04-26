@@ -1,0 +1,4 @@
+---
+deployment:
+  tasks:
+    - /bin/cp -R * $HOME/public_html/
