@@ -7,6 +7,17 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
+// Dynamic Base Path Calculation
+$base_path = str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME']));
+if (str_ends_with($base_path, '/admin')) {
+    $base_path = substr($base_path, 0, -6);
+}
+if ($base_path === '/') {
+    $base_path = '';
+}
+$base_path = rtrim($base_path, '/') . '/';
+define('BASE_PATH', $base_path);
+
 // 1. Check if configuration exists
 if (!file_exists(__DIR__ . '/config.php')) {
     // If we are not already on the installer, redirect to it

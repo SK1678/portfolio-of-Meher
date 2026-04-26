@@ -22,7 +22,7 @@ $cv = $settings['cache_version'] ?? '1';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <base href="/po/">
+    <base href="<?= BASE_PATH ?>">
     <title><?= htmlspecialchars($settings['site_title'] ?? 'Meher Kanti Sarkar | Portfolio') ?> | <?= $page_title ?? '' ?></title>
     
     <!-- SEO Meta Tags -->

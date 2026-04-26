@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (!isset($_SESSION['user_id'])) {
-    header("Location: /po/admin/login");
+    header("Location: " . BASE_PATH . "admin/login");
     exit;
 }
 require '../db.php';
@@ -52,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $updates['favicon'] = $_POST['existing_favicon'];
         }
 
-        $redirect = "/po/admin/settings";
+        $redirect = BASE_PATH . "admin/settings";
     } elseif (isset($_POST['is_basic_settings'])) {
         // ─── BASIC INFORMATION SETTINGS ───────────────────────
         $updates = [
@@ -94,7 +94,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             }
         }
 
-        $redirect = "/po/admin/settings_basic";
+        $redirect = BASE_PATH . "admin/settings_basic";
     } else {
         // ─── HOMEPAGE SETTINGS ────────────────────────────────
         $updates = [
@@ -156,7 +156,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $updates['bg_media'] = (($updates['bg_type'] ?? '') === 'slider') ? implode(',', $all_media) : $all_media[0];
         }
 
-        $redirect = "/po/admin";
+        $redirect = BASE_PATH . "admin";
     }
 
     // ─── UPDATE DATABASE ──────────────────────────────────────

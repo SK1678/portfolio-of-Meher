@@ -32,6 +32,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $conn->query("INSERT INTO users (full_name, username, password, role) VALUES ('$full_name', '$username', '$hashed', '$role')");
     }
 
-    header("Location: /po/admin/settings?status=saved&tab=users");
+    header("Location: " . BASE_PATH . "admin/settings?status=saved&tab=users");
     exit;
 }

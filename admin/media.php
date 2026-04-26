@@ -14,7 +14,7 @@ if (isset($_POST['delete_files'])) {
             }
         }
     }
-    header("Location: /po/admin/media?status=deleted&count=$deleted_count");
+    header("Location: " . BASE_PATH . "admin/media?status=deleted&count=$deleted_count");
     exit();
 }
 

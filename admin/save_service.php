@@ -15,9 +15,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     if ($conn->query($query)) {
-        header("Location: /po/admin/services?status=success&tab=services");
+        header("Location: " . BASE_PATH . "admin/services?status=success&tab=services");
     } else {
-        header("Location: /po/admin/services?status=error&tab=services");
+        header("Location: " . BASE_PATH . "admin/services?status=error&tab=services");
     }
 }
 ?>

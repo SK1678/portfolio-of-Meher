@@ -121,6 +121,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     $active_tab = $_POST['active_tab'] ?? 'personal';
-    header("Location: /po/admin/about_settings?status=success&tab=$active_tab");
+    header("Location: " . BASE_PATH . "admin/about_settings?status=success&tab=$active_tab");
     exit;
 }
