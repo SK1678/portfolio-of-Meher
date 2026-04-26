@@ -29,11 +29,15 @@ include 'includes/public_nav.php';
     <?php if ($counters->num_rows > 0): ?>
     <div class="custom-container">
         <div class="counters-grid">
-            <?php while($c = $counters->fetch_assoc()): ?>
+            <?php while($c = $counters->fetch_assoc()): 
+                // Remove non-numeric chars for target value
+                $numeric_value = preg_replace('/[^0-9]/', '', $c['value']);
+                $suffix = preg_replace('/[0-9]/', '', $c['value']);
+            ?>
                 <div class="counter-card">
                     <i class="fa <?= $c['icon'] ?> counter-icon"></i>
                     <span class="counter-label"><?= htmlspecialchars($c['title']) ?></span>
-                    <h4 class="counter-value"><?= $c['value'] ?></h4>
+                    <h4 class="counter-value" data-target="<?= $numeric_value ?>" data-suffix="<?= $suffix ?>">0<?= $suffix ?></h4>
                 </div>
             <?php endwhile; ?>
         </div>
@@ -135,19 +139,23 @@ include 'includes/public_nav.php';
         box-shadow: 0 10px 20px rgba(0,0,0,0.5);
     }
     .counter-icon {
-        font-size: 1.5rem;
-        margin-bottom: 10px;
+        font-size: 2.5rem; /* Increased size */
+        margin-bottom: 12px;
         display: block;
+        opacity: 0.9;
     }
     .counter-label {
         font-family: var(--body-font);
         font-size: 0.9rem;
         display: block;
         margin-bottom: 5px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        opacity: 0.8;
     }
     .counter-value {
         font-family: var(--heading-font);
-        font-size: 1.5rem;
+        font-size: 2.2rem; /* Increased size */
         font-weight: bold;
         margin: 0;
     }
@@ -221,5 +229,46 @@ include 'includes/public_nav.php';
         .counters-grid { grid-template-columns: 1fr; }
     }
 </style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const counters = document.querySelectorAll('.counter-value');
+        const speed = 200; // The lower the slower
+
+        const animateCounter = (counter) => {
+            const target = +counter.getAttribute('data-target');
+            const suffix = counter.getAttribute('data-suffix');
+            
+            const updateCount = () => {
+                const count = +counter.innerText.replace(suffix, '');
+                const inc = target / speed;
+
+                if (count < target) {
+                    counter.innerText = Math.ceil(count + inc) + suffix;
+                    setTimeout(updateCount, 1);
+                } else {
+                    counter.innerText = target + suffix;
+                }
+            };
+
+            updateCount();
+        };
+
+        const observerOptions = {
+            threshold: 0.5
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateCounter(entry.target);
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        counters.forEach(counter => observer.observe(counter));
+    });
+</script>
 
 <?php include 'includes/public_footer.php'; ?>
