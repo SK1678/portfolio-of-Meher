@@ -1,0 +1,334 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Outfit', sans-serif;
+    background: #000;
+    color: #fff;
+    overflow: hidden;
+}
+
+.hero-container {
+    height: 100vh;
+    width: 100%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.bg-media {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+.bg-media video,
+.bg-media .bg-image,
+.bg-media .slider {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    background-size: cover;
+    background-position: center;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.4) 100%);
+    z-index: 1;
+    pointer-events: none;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+}
+
+.hero-content h1 {
+    font-size: 5rem;
+    font-weight: 700;
+    letter-spacing: -2px;
+    margin-bottom: 1rem;
+    opacity: 0;
+    animation: fadeInUp 1s forwards 0.5s;
+}
+
+.hero-content p {
+    font-size: 1.5rem;
+    font-weight: 300;
+    margin-bottom: 2rem;
+    color: #ddd;
+}
+
+.btn-dynamic {
+    display: inline-block;
+    padding: 12px 30px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.9rem;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    margin: 10px;
+    position: relative;
+    z-index: 3;
+}
+
+.btn-dynamic:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+.social-links {
+    position: absolute;
+    bottom: 30px;
+    right: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    z-index: 10;
+}
+
+.social-links a {
+    color: #fff;
+    font-size: 1.0rem;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 25px;
+    height: 25px;
+    text-decoration: none;
+}
+
+.social-links a:hover {
+    color: #ffcc00;
+    transform: translateY(-5px);
+}
+
+.social-links a:hover {
+    color: var(--btn-bg);
+    transform: scale(1.2);
+}
+
+/* Side Navigation - Icon Pill Style */
+.side-nav {
+    position: fixed;
+    top: 40px;
+    left: 30px;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(-20px);
+    /* Subtle slide */
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.side-nav.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(0);
+}
+
+/* The actual pill background - only for icons */
+.nav-pill-bg {
+    background: rgba(30, 30, 30, 0.95);
+    backdrop-filter: blur(15px);
+    border-radius: 40px;
+    padding: 30px 0;
+    width: 60px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+}
+
+.close-nav {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 1.1rem;
+    cursor: pointer;
+    margin-bottom: 30px;
+    transition: transform 0.3s;
+}
+
+.close-nav:hover {
+    transform: rotate(90deg);
+    color: #ffcc00;
+}
+
+.nav-items {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+}
+
+.nav-items li {
+    position: relative;
+    margin-bottom: 30px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.nav-items li a {
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: center;
+}
+
+.nav-items li i {
+    font-size: 1rem;
+    color: #aaa;
+    transition: color 0.3s;
+    z-index: 2;
+}
+
+/* Active State Indicators */
+.side-nav ul li.active a i,
+.side-nav ul li:hover a i {
+    color: var(--primary-theme);
+}
+
+.side-nav ul li.active a span,
+.side-nav ul li:hover a span {
+    color: var(--primary-theme);
+}
+
+.side-nav ul li.active::after {
+    content: '';
+    position: absolute;
+    left: 70px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 3px;
+    height: 20px;
+    background: var(--primary-theme);
+    border-radius: 2px;
+}
+
+/* Text - Outside the pill */
+.nav-items li span {
+    position: absolute;
+    left: 80px;
+    /* Pushed out of the pill */
+    color: #fff;
+    font-weight: 600;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    white-space: nowrap;
+    transition: color 0.3s;
+}
+
+.menu-toggle {
+    position: fixed;
+    top: 30px;
+    left: 30px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    z-index: 9999;
+    color: white;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+}
+
+.menu-toggle:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.1);
+}
+
+/* Hide toggle when nav is active */
+.side-nav.active ~ .menu-toggle {
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(0.5);
+    pointer-events: none;
+}
+
+.menu-toggle:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.1);
+}
+
+
+
+/* Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Slider logic in CSS for simplicity */
+.slider {
+    position: relative;
+    overflow: hidden;
+}
+
+.slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+    background-size: cover;
+    background-position: center;
+}
+
+.slide.active {
+    opacity: 1;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .hero-content h1 {
+        font-size: 3rem;
+    }
+
+    .social-links {
+        right: 20px;
+        bottom: 20px;
+    }
+}
+/* Image Alignment & Wrapping Classes */
+.img-left { float: left; margin-right: 20px; max-width: 50%; margin-bottom: 10px; }
+.img-right { float: right; margin-left: 20px; max-width: 50%; margin-bottom: 10px; }
+.img-center { display: block; margin-left: auto; margin-right: auto; margin-bottom: 20px; }
+
+@media (max-width: 768px) {
+    .img-left, .img-right { float: none !important; max-width: 100% !important; margin-left: 0; margin-right: 0; }
+}
