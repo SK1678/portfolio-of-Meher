@@ -16,7 +16,9 @@ if ($base_path === '/') {
     $base_path = '';
 }
 $base_path = rtrim($base_path, '/') . '/';
-define('BASE_PATH', $base_path);
+if (!defined('BASE_PATH')) {
+    define('BASE_PATH', $base_path);
+}
 
 // 1. Check if configuration exists
 if (!file_exists(__DIR__ . '/config.php')) {
