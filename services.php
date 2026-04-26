@@ -239,6 +239,12 @@ include 'includes/public_nav.php';
             const target = +counter.getAttribute('data-target');
             const suffix = counter.getAttribute('data-suffix');
             
+            // Check if page is loaded, if not wait a bit
+            if (!document.body.classList.contains('loaded')) {
+                setTimeout(() => animateCounter(counter), 300);
+                return;
+            }
+
             const updateCount = () => {
                 const count = +counter.innerText.replace(suffix, '');
                 const inc = target / speed;
