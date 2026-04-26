@@ -256,6 +256,9 @@ include 'includes/public_nav.php';
             grid-template-columns: 1fr;
         }
     }
+    /* Ensure nav is above everything */
+    .side-nav { z-index: 10001 !important; }
+    .menu-toggle { z-index: 10002 !important; }
 </style>
 
 <script>

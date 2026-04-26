@@ -43,13 +43,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const closeNav = document.getElementById('close-nav');
 
     if (menuToggle && sideNav) {
-        menuToggle.addEventListener('click', () => {
+        menuToggle.addEventListener('click', (e) => {
+            e.stopPropagation(); // Prevent document click from firing
             sideNav.classList.add('active');
         });
     }
 
     if (closeNav && sideNav) {
-        closeNav.addEventListener('click', () => {
+        closeNav.addEventListener('click', (e) => {
+            e.stopPropagation();
             sideNav.classList.remove('active');
         });
     }
