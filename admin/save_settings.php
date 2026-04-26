@@ -156,7 +156,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $updates['bg_media'] = (($updates['bg_type'] ?? '') === 'slider') ? implode(',', $all_media) : $all_media[0];
         }
 
-        $redirect = BASE_PATH . "admin";
+        $redirect = BASE_PATH . "admin/settings_homepage";
     }
 
     // ─── UPDATE DATABASE ──────────────────────────────────────
