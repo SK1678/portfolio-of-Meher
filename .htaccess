@@ -1,6 +1,9 @@
 RewriteEngine On
 # RewriteBase auto-detected by Apache
 
+# Allow assets to load directly
+RewriteRule ^assets/ - [L]
+
 # External redirect: remove .php extension if present in URL (GET requests only)
 RewriteCond %{REQUEST_METHOD} GET
 RewriteCond %{THE_REQUEST} ^[A-Z]{3,}\s([^.]+)\.php [NC]
