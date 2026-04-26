@@ -128,12 +128,14 @@ $conn->query("CREATE TABLE IF NOT EXISTS file_vault (
 )");
 
 // Migration for existing tables (Compatible with all MySQL versions)
+if (!function_exists('addColumnIfNotExists')) {
 function addColumnIfNotExists($conn, $table, $column, $definition)
 {
     $check = $conn->query("SHOW COLUMNS FROM `$table` LIKE '$column'");
     if ($check && $check->num_rows == 0) {
         $conn->query("ALTER TABLE `$table` ADD COLUMN `$column` $definition");
     }
+}
 }
 
 addColumnIfNotExists($conn, 'visitor_logs', 'page_url', 'TEXT AFTER ip_address');
